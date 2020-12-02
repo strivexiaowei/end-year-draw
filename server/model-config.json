@@ -1,0 +1,32 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "staff": {
+    "dataSource": "endYearDraw",
+    "public": true
+  },
+  "prize": {
+    "dataSource": "endYearDraw",
+    "public": true
+  },
+  "awards": {
+    "dataSource": "endYearDraw",
+    "public": true
+  },
+  "winlist": {
+    "dataSource": "endYearDraw",
+    "public": true
+  }
+}

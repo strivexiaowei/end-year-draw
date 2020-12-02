@@ -1,0 +1,13 @@
+{
+  "endYearDraw": {
+    "host": "127.0.0.1",
+    "port": 27017,
+    "url": "",
+    "database": "endyeardraw",
+    "password": "123456",
+    "name": "endYearDraw",
+    "user": "huangxianwei",
+    "useNewUrlParser": true,
+    "connector": "mongodb"
+  }
+}

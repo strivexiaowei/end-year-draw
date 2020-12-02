@@ -1,0 +1,22 @@
+{
+  "name": "winlist",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "jobNumber": {
+      "type": "string",
+      "required": true
+    },
+    "award": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
