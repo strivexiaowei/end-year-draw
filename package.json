@@ -1,34 +1,45 @@
 {
-  "name": "end-year-draw",
-  "version": "1.0.0",
-  "main": "server/server.js",
-  "engines": {
-    "node": ">=6"
-  },
+  "name": "food-retrospect",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "lint": "eslint .",
-    "start": "node .",
-    "posttest": "npm run lint"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "compression": "^1.0.3",
-    "cors": "^2.5.2",
-    "helmet": "^3.10.0",
-    "loopback": "^3.22.0",
-    "loopback-boot": "^2.6.5",
-    "loopback-component-explorer": "^6.2.0",
-    "loopback-connector-mongodb": "^4.2.0",
-    "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^4.0.0"
+    "axios": "^0.19.2",
+    "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
+    "html2canvas": "^1.0.0-rc.7",
+    "qrcodejs2": "0.0.2",
+    "qs": "^6.9.4",
+    "rxjs": "^6.6.3",
+    "rxjs-compat": "^6.6.3",
+    "vue": "^2.6.11",
+    "vue-print-nb": "^1.5.0",
+    "vue-router": "^3.2.0",
+    "vue-rx": "^6.2.0",
+    "vuex": "^3.4.0",
+    "vxe-table": "^2.9.26",
+    "xe-utils": "^2.8.1"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-config-loopback": "^8.0.0"
-  },
-  "repository": {
-    "type": "",
-    "url": ""
-  },
-  "license": "UNLICENSED",
-  "description": "end-year-draw"
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  }
 }

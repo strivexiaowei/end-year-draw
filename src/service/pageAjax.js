@@ -1,0 +1,11 @@
+import axios from './axios'
+export const createStaff = (params) => axios.put('api/staffs', params)
+export const queryStaffs = (params) => axios.get('api/staffs', params)
+export const deleteStaff = (id) => axios.delete('api/staffs/' + id)
+export const createAward = (params) => axios.put('api/awards', params)
+export const queryAwards = (params) => axios.get('api/awards', params)
+export const deleteAward = (id) => axios.delete('api/awards/' + id)
+export const createPrize = (params) => axios.put('api/prizes', params)
+export const queryPrizes = (params) => axios.get('api/prizes', params)
+export const deletePrize = (id) => axios.delete('api/prizes/' + id)
+export const uploadPic = (params) => axios.post('https://anxzfile.ynyplt.com/api/upload', params, { headers: { 'Content-Type': 'multipart/form-data' } })
