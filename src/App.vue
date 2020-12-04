@@ -30,15 +30,38 @@
                 </el-aside>
                 <el-main>
                     <el-header style="text-align: right;">
-                        <el-button type="primary" size="default">去抽奖</el-button>
+                        <el-button @click="showDrawFn" type="primary" size="default">去抽奖</el-button>
                     </el-header>
                     <router-view />
                 </el-main>
             </el-container>
         </el-container>
+        <div v-if="showDraw">
+            <draw-page @closeDraw="closeDraw"></draw-page>
+        </div>
     </div>
 </template>
-
+<script>
+import drawPage from '@/components/drawPage'
+export default {
+    components: {
+        drawPage
+    },
+    data () {
+        return {
+            showDraw: false
+        }
+    },
+    methods: {
+        showDrawFn () {
+            this.showDraw = true
+        },
+        closeDraw (showDraw) {
+            this.showDraw = showDraw
+        }
+    }
+}
+</script>
 <style>
 body, html {
   margin: 0;

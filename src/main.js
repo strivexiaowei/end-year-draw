@@ -9,13 +9,13 @@ import './element/element-variables.scss'
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
+import './utils/tagcanvas.js'
 Vue.use(VXETable)
 Vue.use(VueRx, Rx)
-
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

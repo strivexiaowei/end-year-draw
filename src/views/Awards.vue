@@ -6,9 +6,11 @@
                     <vxe-input v-model="formData.name" placeholder="请输入名称"></vxe-input>
                 </template> 
             </vxe-form-item>
-            <vxe-form-item title="奖品名称" field="name">
+            <vxe-form-item title="奖品名称" field="prizeId">
                 <template v-slot>
-                    <vxe-input v-model="formData.prizeId" placeholder="请输入名称"></vxe-input>
+                    <vxe-select v-model="formData.prizeId" placeholder="请选择奖品名称">
+                        <vxe-option v-for="(item, index) in prizeOptions" :key="index" :value="item.value" :label="item.label"></vxe-option>
+                    </vxe-select>
                 </template> 
             </vxe-form-item>
             <vxe-form-item>
@@ -34,7 +36,7 @@
             <vxe-table-column field="name" title="奖项名称" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
             <vxe-table-column field="level" title="等级" :edit-render="{name: 'input', attrs: {type: 'number'}}"></vxe-table-column>
             <vxe-table-column field="count" title="奖池数量" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
-            <vxe-table-column field="prizeId" title="奖品名称" :edit-render="{name: '$select', options: gender}"></vxe-table-column>
+            <vxe-table-column field="prizeId" title="奖品名称" :edit-render="{name: '$select', options: prizeOptions}"></vxe-table-column>
             <vxe-table-column title="操作">
                 <template v-slot="{ row }">
                     <div class="cz">
@@ -50,7 +52,7 @@
 // @ is an alias to /src
 import { interval, Subject } from 'rxjs'
 import { take } from 'rxjs/operators'
-import { queryAwards, createAward, deleteAward } from '@/service/pageAjax'
+import { queryPrizes, queryAwards, createAward, deleteAward } from '@/service/pageAjax'
 export default {
     name: 'Awards',
     data () {
@@ -65,13 +67,11 @@ export default {
                 prizeId: undefined
             },
             tableData: [],
-            gender: [
-                { value: '男', label: '男' },
-                { value: '女', label: '女' }
-            ]
+            prizeOptions: []
         }
     },
     created () {
+        this.getPrizes()
         this.findList()
     },
     methods: {
@@ -90,6 +90,13 @@ export default {
                         this.isDisabled = false
                     }
                 })
+        },
+        async getPrizes () {
+            const res = await queryPrizes()
+            this.prizeOptions = [...res.map(({ id, name }) => ({
+                label: name,
+                value: id
+            }))]
         },
         findList () {
             this.loading = true
