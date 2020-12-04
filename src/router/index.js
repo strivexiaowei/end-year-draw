@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Awards from '../views/Awards.vue'
+import Prize from '../views/Prize.vue'
+import Winlist from '../views/Winlist.vue'
 
 Vue.use(VueRouter)
 const routes = [
@@ -14,6 +16,16 @@ const routes = [
         path: '/awards',
         name: 'Awards',
         component: Awards
+    },
+    {
+        path: '/prize',
+        name: 'Prize',
+        component: Prize
+    },
+    {
+        path: '/winlist',
+        name: 'Winlist',
+        component: Winlist
     },
     {
         path: '/about',

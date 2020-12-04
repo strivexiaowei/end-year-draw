@@ -18,10 +18,20 @@
                             <i class="el-icon-menu"></i>
                             <span slot="title">奖项</span>
                         </el-menu-item>
+                        <el-menu-item index="/prize">
+                            <i class="el-icon-menu"></i>
+                            <span slot="title">奖品</span>
+                        </el-menu-item>
+                        <el-menu-item index="/winlist">
+                            <i class="el-icon-menu"></i>
+                            <span slot="title">中奖列表</span>
+                        </el-menu-item>
                     </el-menu>
                 </el-aside>
                 <el-main>
-                    <el-header>Header</el-header>
+                    <el-header style="text-align: right;">
+                        <el-button type="primary" size="default">去抽奖</el-button>
+                    </el-header>
                     <router-view />
                 </el-main>
             </el-container>

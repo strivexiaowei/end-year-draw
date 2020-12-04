@@ -1,15 +1,10 @@
 <template>
     <div class="home">
         <vxe-form :data="formData" @submit="findList">
-            <vxe-form-item title="姓名" field="name">
+            <vxe-form-item title="奖品名称" field="name">
                 <template v-slot>
                     <vxe-input v-model="formData.name" placeholder="请输入名称"></vxe-input>
                 </template> 
-            </vxe-form-item>
-            <vxe-form-item title="工号" field="jobNumber">
-                <template v-slot>
-                    <vxe-input v-model="formData.jobNumber" placeholder="请输入工号"></vxe-input>
-                </template>
             </vxe-form-item>
             <vxe-form-item>
                 <template v-slot>
@@ -21,7 +16,7 @@
         </vxe-form>
 
         <vxe-table
-            ref="staffTable"
+            ref="PrizeTable"
             border
             resizable
             keep-source
@@ -31,10 +26,11 @@
             :edit-config="{trigger: 'click', mode: 'row'}"
         >
             <vxe-table-column type="seq" width="60"></vxe-table-column>
-            <vxe-table-column field="name" title="姓名" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
-            <vxe-table-column field="jobNumber" title="工号" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
-            <vxe-table-column field="gender" title="性别" :edit-render="{name: '$select', options: gender}"></vxe-table-column>
-            <vxe-table-column field="picture" title="头像">
+            <vxe-table-column field="name" title="奖品名称" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
+            <vxe-table-column field="level" title="抽奖等级" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
+            <vxe-table-column field="valuation" title="单价" :edit-render="{name: 'input', attrs: {type: 'number'}}"></vxe-table-column>
+            <vxe-table-column field="count" title="数量" :edit-render="{name: 'input', attrs: {type: 'number'}}"></vxe-table-column>
+            <vxe-table-column field="picture" title="图片">
                 <template v-slot="{ row }">
                     <div class="cz">
                         <label :for="row._XID">
@@ -48,7 +44,7 @@
             <vxe-table-column title="操作">
                 <template v-slot="{ row }">
                     <div class="cz">
-                        <i @click="deleteStaffById(row.id)" class="el-icon-delete"></i>
+                        <i @click="deletePrizeById(row.id)" class="el-icon-delete"></i>
                     </div>
                 </template>
             </vxe-table-column>
@@ -60,9 +56,9 @@
 // @ is an alias to /src
 import { interval, Subject } from 'rxjs'
 import { take } from 'rxjs/operators'
-import { queryStaffs, createStaff, uploadPic, deleteStaff } from '@/service/pageAjax'
+import { queryPrizes, createPrize, uploadPic, deletePrize } from '@/service/pageAjax'
 export default {
-    name: 'Home',
+    name: 'Prize',
     data () {
         return {
             buttonText: '倒计时',
@@ -71,8 +67,7 @@ export default {
             name: new Subject(),
             loading: false,
             formData: {
-                name: undefined,
-                jobNumber: undefined
+                name: undefined
             },
             tableData: [],
             gender: [
@@ -111,11 +106,11 @@ export default {
                     }
                 }
             }
-            this.queryStaffsList(params)
+            this.queryPrizesList(params)
         },
-        async queryStaffsList (params = {}) {
+        async queryPrizesList (params = {}) {
             console.log(params)
-            const res = await queryStaffs(params)
+            const res = await queryPrizes(params)
             console.log(res)
             if (res) {
                 this.tableData = res
@@ -135,9 +130,9 @@ export default {
                 row.picture = res.data[0].result
             }
             delete row._XID
-            const res1 = await createStaff(row)
+            const res1 = await createPrize(row)
             if (res1) {
-                const xTable = this.$refs.staffTable
+                const xTable = this.$refs.PrizeTable
                 xTable.reloadRow(row, null, 'picture')
             }
         },
@@ -145,19 +140,19 @@ export default {
             const record = {
                 gender: '男'
             }
-            const xTable = this.$refs.staffTable
+            const xTable = this.$refs.PrizeTable
             xTable.insertAt(record, row).then(({ row }) => {
                 xTable.setActiveRow(row)
             })
         },
         async editClosedEvent ({ row, column }) {
             console.log(row, column)
-            const xTable = this.$refs.staffTable
+            const xTable = this.$refs.PrizeTable
             const field = column.property
             if (xTable.isUpdateByRow(row, field) || xTable.isInsertByRow(row)) {
                 console.log('改变了')
                 delete row._XID
-                const res = await createStaff(row)
+                const res = await createPrize(row)
                 // 局部更新单元格为已保存状态
                 if (res) {
                     this.$XModal.message({
@@ -168,10 +163,10 @@ export default {
                 }
             }
         },
-        async deleteStaffById (id) {
-            const res = await deleteStaff(id)
+        async deletePrizeById (id) {
+            const res = await deletePrize(id)
             if (res) {
-                this.queryStaffsList()
+                this.queryPrizesList()
             }
         }
     }

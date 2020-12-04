@@ -16,7 +16,7 @@ module.exports = {
                 changeOrigin: true, // needed for virtual hosted sites
                 pathRewrite: {
                     // '^/': '' // rewrite path
-                    '^/api': '/'
+                    '^/api': '/api'
                     // '^/api': '/'
                     // 写'/api'就等于写'http://192.168.65.98:8888'
                 }

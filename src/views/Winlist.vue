@@ -1,14 +1,9 @@
 <template>
     <div class="home">
         <vxe-form :data="formData" @submit="findList">
-            <vxe-form-item title="奖项名称" field="name">
+            <vxe-form-item title="姓名" field="name">
                 <template v-slot>
-                    <vxe-input v-model="formData.name" placeholder="请输入名称"></vxe-input>
-                </template> 
-            </vxe-form-item>
-            <vxe-form-item title="奖品名称" field="name">
-                <template v-slot>
-                    <vxe-input v-model="formData.prizeId" placeholder="请输入名称"></vxe-input>
+                    <vxe-input v-model="formData.name" placeholder="请输入姓名"></vxe-input>
                 </template> 
             </vxe-form-item>
             <vxe-form-item>
@@ -21,24 +16,22 @@
         </vxe-form>
 
         <vxe-table
-            ref="AwardTable"
+            ref="WinlistTable"
             border
             resizable
             keep-source
             :loading="loading"
             :data="tableData"
-            @edit-closed="editClosedEvent"
-            :edit-config="{trigger: 'click', mode: 'row'}"
         >
             <vxe-table-column type="seq" width="60"></vxe-table-column>
-            <vxe-table-column field="name" title="奖项名称" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
-            <vxe-table-column field="level" title="等级" :edit-render="{name: 'input', attrs: {type: 'number'}}"></vxe-table-column>
-            <vxe-table-column field="count" title="奖池数量" :edit-render="{name: 'input', attrs: {type: 'text'}}"></vxe-table-column>
-            <vxe-table-column field="prizeId" title="奖品名称" :edit-render="{name: '$select', options: gender}"></vxe-table-column>
+            <vxe-table-column field="name" title="姓名"></vxe-table-column>
+            <vxe-table-column field="jobNumber" title="工号"></vxe-table-column>
+            <vxe-table-column field="award" title="奖项名称"></vxe-table-column>
+            <vxe-table-column field="level" title="奖项等级"></vxe-table-column>
             <vxe-table-column title="操作">
                 <template v-slot="{ row }">
                     <div class="cz">
-                        <i @click="deleteAwardById(row.id)" class="el-icon-delete"></i>
+                        <i @click="deleteWinlistById(row.id)" class="el-icon-delete"></i>
                     </div>
                 </template>
             </vxe-table-column>
@@ -50,9 +43,9 @@
 // @ is an alias to /src
 import { interval, Subject } from 'rxjs'
 import { take } from 'rxjs/operators'
-import { queryAwards, createAward, deleteAward } from '@/service/pageAjax'
+import { queryWinlists, deleteWinlist } from '@/service/pageAjax'
 export default {
-    name: 'Awards',
+    name: 'Winlist',
     data () {
         return {
             buttonText: '倒计时',
@@ -61,14 +54,9 @@ export default {
             name: new Subject(),
             loading: false,
             formData: {
-                name: undefined,
-                prizeId: undefined
+                name: undefined
             },
-            tableData: [],
-            gender: [
-                { value: '男', label: '男' },
-                { value: '女', label: '女' }
-            ]
+            tableData: []
         }
     },
     created () {
@@ -101,45 +89,21 @@ export default {
                     }
                 }
             }
-            this.queryAwardsList(params)
+            this.queryWinlistsList(params)
         },
-        async queryAwardsList (params = {}) {
+        async queryWinlistsList (params = {}) {
             console.log(params)
-            const res = await queryAwards(params)
+            const res = await queryWinlists(params)
             console.log(res)
             if (res) {
                 this.tableData = res
                 this.loading = false
             }
         },
-        async insertEvent (row) {
-            const xTable = this.$refs.AwardTable
-            xTable.insertAt({}, row).then(({ row }) => {
-                xTable.setActiveRow(row)
-            })
-        },
-        async editClosedEvent ({ row, column }) {
-            console.log(row, column)
-            const xTable = this.$refs.AwardTable
-            const field = column.property
-            if (xTable.isInsertByRow(row) || xTable.isUpdateByRow(row, field)) {
-                console.log('改变了')
-                delete row._XID
-                const res = await createAward(row)
-                // 局部更新单元格为已保存状态
-                if (res) {
-                    this.$XModal.message({
-                        message: '保存成功',
-                        status: 'success'
-                    })
-                    xTable.reloadRow(row)
-                }
-            }
-        },
-        async deleteAwardById (id) {
-            const res = await deleteAward(id)
+        async deleteWinlistById (id) {
+            const res = await deleteWinlist(id)
             if (res) {
-                this.queryAwardsList()
+                this.queryWinlistsList()
             }
         }
     }
