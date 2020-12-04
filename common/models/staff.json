@@ -8,15 +8,19 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "gender": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "picture": {
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "jobNumber": {
+      "type": "string",
+      "required": false
     }
   },
   "validations": [],

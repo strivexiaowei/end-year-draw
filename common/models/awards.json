@@ -8,22 +8,19 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "level": {
+      "type": "number",
+      "required": false
     },
     "count": {
       "type": "number",
-      "required": true
-    },
-    "prizename": {
-      "type": "string",
-      "required": true
-    },
-    "price": {
-      "type": "number"
+      "required": false
     },
     "prizeId": {
       "type": "string",
-      "required": true
+      "required": false
     }
   },
   "validations": [],

@@ -8,11 +8,11 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "level": {
       "type": "number",
-      "required": true
+      "required": false
     },
     "valuation": {
       "type": "number",
@@ -20,7 +20,11 @@
     },
     "count": {
       "type": "number",
-      "required": true
+      "required": false
+    },
+    "picture": {
+      "type": "string",
+      "required": false
     }
   },
   "validations": [],

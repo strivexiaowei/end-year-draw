@@ -6,13 +6,17 @@
     "validateUpsert": true
   },
   "properties": {
+    "name": {
+      "type": "string",
+      "required": false
+    },
     "jobNumber": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "award": {
       "type": "string",
-      "required": true
+      "required": false
     }
   },
   "validations": [],
